@@ -70,6 +70,26 @@ $router->map(
     'category-category_add'
 );
 
+$router->map(
+    'GET',
+    '/produit',
+    [
+        'method' => 'productAction',
+        'controller' => '\App\Controllers\ProductController' // On indique le FQCN de la classe
+    ],
+    'product-product'
+);
+
+$router->map(
+    'GET',
+    '/produit_add',
+    [
+        'method' => 'produit_addAction',
+        'controller' => '\App\Controllers\ProductController' // On indique le FQCN de la classe
+    ],
+    'product-product_add'
+);
+
 /* -------------
 --- DISPATCH ---
 --------------*/
