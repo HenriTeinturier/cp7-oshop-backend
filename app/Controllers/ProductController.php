@@ -47,11 +47,18 @@ class ProductController extends CoreController
      *
      * @return void
      */
-    public function produit_modAction()
+    public function produit_modAction($params)
     {
+
+        $productModel = new Product;
+        $product = $productModel->find($params);
+
+        $data =[
+            'product' => $product,
+        ];
         // On appelle la méthode show() de l'objet courant
         // En argument, on fournit le fichier de Vue
         // Par convention, chaque fichier de vue sera dans un sous-dossier du nom du Controller
-        $this->show('product/product_mod');
+        $this->show('product/product_mod',$data);
     }
 }

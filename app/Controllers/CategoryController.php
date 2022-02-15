@@ -49,11 +49,19 @@ class CategoryController extends CoreController
      *
      * @return void
      */
-    public function category_modAction()
+    public function category_modAction($params)
     {
+        
+        $categoryModel = new Category;
+        $category = $categoryModel->find($params);
+
+        $data = [
+            'category' => $category,
+        ];
+
         // On appelle la méthode show() de l'objet courant
         // En argument, on fournit le fichier de Vue
         // Par convention, chaque fichier de vue sera dans un sous-dossier du nom du Controller
-        $this->show('category/categorie_mod');
+        $this->show('category/categorie_mod', $data);
     }
 }

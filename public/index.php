@@ -72,7 +72,7 @@ $router->map(
 
 $router->map(
     'GET',
-    '/categorie_mod',
+    '/categorie_mod/[i:id]',
     [
         'method' => 'category_modAction',
         'controller' => '\App\Controllers\CategoryController' // On indique le FQCN de la classe
@@ -103,7 +103,7 @@ $router->map(
 
 $router->map(
     'GET',
-    '/produit_mod',
+    '/produit_mod/[i:id]',
     [
         'method' => 'produit_modAction',
         'controller' => '\App\Controllers\ProductController' // On indique le FQCN de la classe

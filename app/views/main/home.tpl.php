@@ -22,7 +22,7 @@
                                     <th scope="row"><?=$category->getId()  ?></th>
                                     <td><?=$category->getName()  ?></td>
                                     <td class="text-end">
-                                        <a href="<?= $router->generate('category-category_mod') ?>" class="btn btn-sm btn-warning">
+                                        <a href="<?= $router->generate('category-category_mod', ['id' => $category->getId()]) ?>" class="btn btn-sm btn-warning">
                                             <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                         </a>
                                         <!-- Example single danger button -->
@@ -66,7 +66,7 @@
                                     <th scope="row"><?=$product->getId()?></th>
                                     <td><?=$product->getName()?></td>
                                     <td class="text-end">
-                                        <a href="<?= $router->generate('product-product_mod') ?>" class="btn btn-sm btn-warning">
+                                        <a href="<?= $router->generate('product-product_mod', ['id' => $product->getId()]) ?>" class="btn btn-sm btn-warning">
                                             <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                         </a>
                                         <!-- Example single danger button -->
