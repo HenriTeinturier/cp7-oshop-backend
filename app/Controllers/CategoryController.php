@@ -2,6 +2,8 @@
 
 namespace App\Controllers;
 
+use App\Models\Category;
+
 // Si j'ai besoin du Model Category
 // use App\Models\Category;
 
@@ -14,10 +16,19 @@ class CategoryController extends CoreController
      */
     public function categorieAction()
     {
+
+        $categoriesModel = new Category;
+        $categories = $categoriesModel->findAll();
+
+        $data = [
+            'categories' => $categories,
+        ];
+
+
         // On appelle la méthode show() de l'objet courant
         // En argument, on fournit le fichier de Vue
         // Par convention, chaque fichier de vue sera dans un sous-dossier du nom du Controller
-        $this->show('category/categorie');
+        $this->show('category/categorie', $data);
     }
 
     /**
