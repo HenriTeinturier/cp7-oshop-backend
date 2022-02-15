@@ -100,6 +100,17 @@ $router->map(
     'product-product_add'
 );
 
+
+$router->map(
+    'GET',
+    '/produit_mod',
+    [
+        'method' => 'produit_modAction',
+        'controller' => '\App\Controllers\ProductController' // On indique le FQCN de la classe
+    ],
+    'product-product_mod'
+);
+
 /* -------------
 --- DISPATCH ---
 --------------*/
