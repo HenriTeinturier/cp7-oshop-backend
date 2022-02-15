@@ -132,6 +132,21 @@ class Category extends CoreModel
         return $results;
     }
 
+     /**
+     * Méthode permettant de récupérer les trois premiers enregistrements de la table category
+     *
+     * @return Category[]
+     */
+    public function findThreeCategories()
+    {
+        $pdo = Database::getPDO();
+        $sql = 'SELECT * FROM `category` LIMIT 3';
+        $pdoStatement = $pdo->query($sql);
+        $results = $pdoStatement->fetchAll(PDO::FETCH_CLASS, 'App\Models\Category');
+
+        return $results;
+    }
+
     /**
      * Récupérer les 5 catégories mises en avant sur la home
      *

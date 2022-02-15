@@ -94,6 +94,21 @@ class Product extends CoreModel
     }
 
     /**
+     * Méthode permettant de récupérer les trois premiers enregistrements de la table product
+     *
+     * @return Product[]
+     */
+    public function findThreeProducts()
+    {
+        $pdo = Database::getPDO();
+        $sql = 'SELECT * FROM `product`LIMIT 3';
+        $pdoStatement = $pdo->query($sql);
+        $results = $pdoStatement->fetchAll(PDO::FETCH_CLASS, 'App\Models\Product');
+
+        return $results;
+    }
+
+    /**
      * Get the value of name
      *
      * @return  string
