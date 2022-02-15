@@ -19,7 +19,7 @@
                         <td><?= $category->getName() ?></td>
                         <td><?= $category->getsubtitle() ?></td>
                         <td class="text-end">
-                            <a href="" class="btn btn-sm btn-warning">
+                            <a href="<?= $router->generate('category-category_mod') ?>" class="btn btn-sm btn-warning">
                                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                             </a>
                             <!-- Example single danger button -->

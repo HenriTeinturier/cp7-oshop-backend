@@ -72,6 +72,16 @@ $router->map(
 
 $router->map(
     'GET',
+    '/categorie_mod',
+    [
+        'method' => 'category_modAction',
+        'controller' => '\App\Controllers\CategoryController' // On indique le FQCN de la classe
+    ],
+    'category-category_mod'
+);
+
+$router->map(
+    'GET',
     '/produit',
     [
         'method' => 'productAction',
