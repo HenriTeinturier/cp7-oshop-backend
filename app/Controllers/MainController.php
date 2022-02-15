@@ -19,4 +19,6 @@ class MainController extends CoreController
         // Par convention, chaque fichier de vue sera dans un sous-dossier du nom du Controller
         $this->show('main/home');
     }
+
+
 }

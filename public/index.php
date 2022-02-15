@@ -50,6 +50,25 @@ $router->map(
     'main-home'
 );
 
+$router->map(
+    'GET',
+    '/categorie',
+    [
+        'method' => 'categorieAction',
+        'controller' => '\App\Controllers\CategoryController' // On indique le FQCN de la classe
+    ],
+    'category-category'
+);
+
+$router->map(
+    'GET',
+    '/categorie_add',
+    [
+        'method' => 'category_addAction',
+        'controller' => '\App\Controllers\CategoryController' // On indique le FQCN de la classe
+    ],
+    'category-category_add'
+);
 
 /* -------------
 --- DISPATCH ---
