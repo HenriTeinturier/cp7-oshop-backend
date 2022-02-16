@@ -91,6 +91,16 @@ $router->map(
 );
 
 $router->map(
+    'POST',
+    '/categorie_mod/[i:id]',
+    [
+        'method' => 'modValid',
+        'controller' => '\App\Controllers\CategoryController' // On indique le FQCN de la classe
+    ],
+    'category-modCalid'
+);
+
+$router->map(
     'GET',
     '/produit',
     [
@@ -129,6 +139,16 @@ $router->map(
         'controller' => '\App\Controllers\ProductController' // On indique le FQCN de la classe
     ],
     'product-mod'
+);
+
+$router->map(
+    'POST',
+    '/produit_mod/[i:id]',
+    [
+        'method' => 'modValid',
+        'controller' => '\App\Controllers\ProductController' // On indique le FQCN de la classe
+    ],
+    'product-modValid'
 );
 
 /* -------------

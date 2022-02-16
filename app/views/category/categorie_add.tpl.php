@@ -3,10 +3,12 @@
         <h2>Ajouter une catégorie</h2>
         
         <form action="" method="POST" class="mt-5">
+
             <div class="mb-3">
                 <label for="name" class="form-label">Nom</label>
                 <input type="text" name="name" class="form-control" id="name" placeholder="Nom de la catégorie">
             </div>
+
             <div class="mb-3">
                 <label for="subtitle" class="form-label">Sous-titre</label>
                 <input type="text" name="subtitle" class="form-control" id="subtitle" placeholder="Sous-titre" aria-describedby="subtitleHelpBlock">
@@ -14,6 +16,7 @@
                     Sera affiché sur la page d'accueil comme bouton devant l'image
                 </small>
             </div>
+            
             <div class="mb-3">
                 <label for="picture" class="form-label">Image</label>
                 <input type="text" name="picture" class="form-control" id="picture" placeholder="image jpg, gif, svg, png" aria-describedby="pictureHelpBlock">

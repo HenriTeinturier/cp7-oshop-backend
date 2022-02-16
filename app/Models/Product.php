@@ -321,4 +321,38 @@ class Product extends CoreModel
         // Si on arrive ici, c'est que quelque chose n'a pas bien fonctionné => FAUX
         return false;
     }
+
+    /**
+     * Méthode permettant de mettre à jour un enregistrement dans la table brand
+     * L'objet courant doit contenir l'id, et toutes les données à ajouter : 1 propriété => 1 colonne dans la table
+     *
+     * @return bool
+     */
+    public function update()
+    {
+        // Récupération de l'objet PDO représentant la connexion à la DB
+        $pdo = Database::getPDO();
+
+        // Ecriture de la requête UPDATE
+        $sql = "
+            UPDATE `product`
+            SET
+                name = '{$this->name}',
+                description = '{$this->description}',
+                picture = '{$this->picture}',
+                price = '{$this->price}',
+                brand_id = '{$this->brand_id}',
+                category_id = '{$this->category_id}',
+                type_id = '{$this->type_id}',
+                updated_at = NOW()
+                
+            WHERE id = $this->id
+        ";
+        
+        // Execution de la requête de mise à jour (exec, pas query)
+        $updatedRows = $pdo->exec($sql);
+
+        // On retourne VRAI, si au moins une ligne ajoutée
+        return ($updatedRows > 0);
+    }
 }

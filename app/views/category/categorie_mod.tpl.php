@@ -4,26 +4,45 @@
         <h2>Modifier une catégorie</h2>
         
         <form action="" method="POST" class="mt-5">
+
             <div class="mb-3">
                 <label for="name" class="form-label">Nom</label>
-                <input type="text" class="form-control" id="name" placeholder="" value="<?= $category->getName()  ?>">
+                <input type="text" name="name" class="form-control" id="name" placeholder="" value="<?= $category->getName()  ?>">
             </div>
+
             <div class="mb-3">
                 <label for="subtitle" class="form-label">Sous-titre</label>
-                <input type="text" class="form-control" id="subtitle" placeholder="Sous-titre" value="<?= $category->getSubtitle()  ?>" aria-describedby="subtitleHelpBlock">
+                <input type="text" class="form-control" id="subtitle" name="subtitle" placeholder="Sous-titre" value="<?= $category->getSubtitle()  ?>" aria-describedby="subtitleHelpBlock">
                 <small id="subtitleHelpBlock" class="form-text text-muted">
                     Sera affiché sur la page d'accueil comme bouton devant l'image
                 </small>
             </div>
+
             <div class="mb-3">
                 <label for="picture" class="form-label">Image</label>
-                <input type="text" class="form-control" id="picture" placeholder="image jpg, gif, svg, png" value="<?= $category->getPicture()  ?>" aria-describedby="pictureHelpBlock">
+                <input type="text" class="form-control" id="picture" name="picture" placeholder="image jpg, gif, svg, png" value="<?= $category->getPicture()  ?>" aria-describedby="pictureHelpBlock">
                 <small id="pictureHelpBlock" class="form-text text-muted">
                     URL relative d'une image (jpg, gif, svg ou png) fournie sur <a href="https://benoclock.github.io/S06-images/" target="_blank">cette page</a>
                 </small>
             </div>
+
+            <div class="mb-3">
+                <label for="subtitle" class="form-label">Home Order</label>
+                <input type="text" name="home_order" class="form-control" id="subtitle" value="<?= $category->getHomeOrder() ?>" placeholder="0 pour ne pas être sur accueil 1 à 5 pour le classement accueil" aria-describedby="subtitleHelpBlock">
+                <small id="subtitleHelpBlock" class="form-text text-muted">
+                    1 à 5 pour le classement accueil 0 pour ne pas être sur accueil
+                </small>
+            </div>            
+
+            <?php if ($validate):  ?>
+                <div class="alert alert-success" role="alert">
+                Modification validée
+                </div>
+            <?php endif ?>   
             <div class="d-grid gap-2">
                 <button type="submit" class="btn btn-primary mt-5">Valider</button>
             </div>
+
+
         </form>
     </div>
