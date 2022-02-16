@@ -71,6 +71,16 @@ $router->map(
 );
 
 $router->map(
+    'POST',
+    '/categorie_add',
+    [
+        'method' => 'create',
+        'controller' => '\App\Controllers\CategoryController' // On indique le FQCN de la classe
+    ],
+    'category-create'
+);
+
+$router->map(
     'GET',
     '/categorie_mod/[i:id]',
     [
@@ -90,6 +100,7 @@ $router->map(
     'product-list'
 );
 
+
 $router->map(
     'GET',
     '/produit_add',
@@ -98,6 +109,15 @@ $router->map(
         'controller' => '\App\Controllers\ProductController' // On indique le FQCN de la classe
     ],
     'product-add'
+);
+$router->map(
+    'POST',
+    '/produit_add',
+    [
+        'method' => 'create',
+        'controller' => '\App\Controllers\ProductController' // On indique le FQCN de la classe
+    ],
+    'product-create'
 );
 
 

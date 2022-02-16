@@ -45,6 +45,37 @@ class CategoryController extends CoreController
     }
 
     /**
+     * Méthode s'occupant de creer une categorie dans la bdd
+     *
+     * @return void
+     */
+    public function create()
+    {
+
+        $name = filter_input(INPUT_POST, 'name');
+        $subtitle = filter_input(INPUT_POST, 'subtitle');
+        $picture = filter_input(INPUT_POST, 'picture');
+        $home_order = filter_input(INPUT_POST, 'home_order');
+        // vérifier si toutes les données existent avant d'insérer dans la base de donnée
+        // TODO afficher une erreur sur le formulaire
+        if ($name & $subtitle & $picture & $home_order) {
+            $category = new Category;
+            $category->setName($name);
+            $category->setSubtitle($subtitle);
+            $category->setPicture($picture);
+            $category->setHomeOrder($home_order);
+    
+            $category->insert();
+        }
+        
+
+        // On appelle la méthode show() de l'objet courant
+        // En argument, on fournit le fichier de Vue
+        // Par convention, chaque fichier de vue sera dans un sous-dossier du nom du Controller
+        $this->list();
+    }
+
+    /**
      * Méthode s'occupant de la page d'accueil
      *
      * @return void
