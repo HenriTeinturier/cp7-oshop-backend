@@ -54,50 +54,50 @@ $router->map(
     'GET',
     '/categorie',
     [
-        'method' => 'categorieAction',
+        'method' => 'list',
         'controller' => '\App\Controllers\CategoryController' // On indique le FQCN de la classe
     ],
-    'category-category'
+    'category-list'
 );
 
 $router->map(
     'GET',
     '/categorie_add',
     [
-        'method' => 'category_addAction',
+        'method' => 'add',
         'controller' => '\App\Controllers\CategoryController' // On indique le FQCN de la classe
     ],
-    'category-category_add'
+    'category-add'
 );
 
 $router->map(
     'GET',
     '/categorie_mod/[i:id]',
     [
-        'method' => 'category_modAction',
+        'method' => 'mod',
         'controller' => '\App\Controllers\CategoryController' // On indique le FQCN de la classe
     ],
-    'category-category_mod'
+    'category-mod'
 );
 
 $router->map(
     'GET',
     '/produit',
     [
-        'method' => 'productAction',
+        'method' => 'list',
         'controller' => '\App\Controllers\ProductController' // On indique le FQCN de la classe
     ],
-    'product-product'
+    'product-list'
 );
 
 $router->map(
     'GET',
     '/produit_add',
     [
-        'method' => 'produit_addAction',
+        'method' => 'add',
         'controller' => '\App\Controllers\ProductController' // On indique le FQCN de la classe
     ],
-    'product-product_add'
+    'product-add'
 );
 
 
@@ -105,10 +105,10 @@ $router->map(
     'GET',
     '/produit_mod/[i:id]',
     [
-        'method' => 'produit_modAction',
+        'method' => 'mod',
         'controller' => '\App\Controllers\ProductController' // On indique le FQCN de la classe
     ],
-    'product-product_mod'
+    'product-mod'
 );
 
 /* -------------

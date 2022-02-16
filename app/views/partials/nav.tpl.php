@@ -8,14 +8,12 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
+                    
                     <li class="nav-item">
-                        <a class="nav-link active" href="<?php echo $router->generate('main-home');   ?>">Accueil <span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="<?php echo $router->generate('category-list');   ?>">Catégories</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?php echo $router->generate('category-category');   ?>">Catégories</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?php echo $router->generate('product-product');   ?>">Produits</a>
+                        <a class="nav-link" href="<?php echo $router->generate('product-list');   ?>">Produits</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Types</a>

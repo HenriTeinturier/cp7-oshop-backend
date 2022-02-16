@@ -22,7 +22,7 @@
                                     <th scope="row"><?=$category->getId()  ?></th>
                                     <td><?=$category->getName()  ?></td>
                                     <td class="text-end">
-                                        <a href="<?= $router->generate('category-category_mod', ['id' => $category->getId()]) ?>" class="btn btn-sm btn-warning">
+                                        <a href="<?= $router->generate('category-mod', ['id' => $category->getId()]) ?>" class="btn btn-sm btn-warning">
                                             <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                         </a>
                                         <!-- Example single danger button -->
@@ -43,7 +43,7 @@
                             </tbody>
                         </table>
                         <div class="d-grid gap-2">
-                            <a href="<?= $router->generate('category-category') ?>" class="btn btn-success">Voir plus</a>
+                            <a href="<?= $router->generate('category-list') ?>" class="btn btn-success">Voir plus</a>
                         </div>
                     </div>
                 </div>
@@ -66,7 +66,7 @@
                                     <th scope="row"><?=$product->getId()?></th>
                                     <td><?=$product->getName()?></td>
                                     <td class="text-end">
-                                        <a href="<?= $router->generate('product-product_mod', ['id' => $product->getId()]) ?>" class="btn btn-sm btn-warning">
+                                        <a href="<?= $router->generate('product-mod', ['id' => $product->getId()]) ?>" class="btn btn-sm btn-warning">
                                             <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                         </a>
                                         <!-- Example single danger button -->
@@ -87,7 +87,7 @@
                             </tbody>
                         </table>
                         <div class="d-grid gap-2">
-                            <a href="<?= $router->generate('product-product') ?>" class="btn btn-success">Voir plus</a>
+                            <a href="<?= $router->generate('product-list') ?>" class="btn btn-success">Voir plus</a>
                         </div>
                     </div>
                 </div>

@@ -14,7 +14,7 @@ class ProductController extends CoreController
      *
      * @return void
      */
-    public function productAction()
+    public function list()
     {
         $productsModel = new Product;
         $products = $productsModel->findAll();
@@ -34,7 +34,7 @@ class ProductController extends CoreController
      *
      * @return void
      */
-    public function produit_addAction()
+    public function add()
     {
         // On appelle la méthode show() de l'objet courant
         // En argument, on fournit le fichier de Vue
@@ -47,7 +47,7 @@ class ProductController extends CoreController
      *
      * @return void
      */
-    public function produit_modAction($params)
+    public function mod($params)
     {
 
         $productModel = new Product;

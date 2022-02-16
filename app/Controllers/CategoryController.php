@@ -14,9 +14,9 @@ class CategoryController extends CoreController
      *
      * @return void
      */
-    public function categorieAction()
+    public function list()
     {
-
+        
         $categoriesModel = new Category;
         $categories = $categoriesModel->findAll();
 
@@ -36,7 +36,7 @@ class CategoryController extends CoreController
      *
      * @return void
      */
-    public function category_addAction()
+    public function add()
     {
         // On appelle la méthode show() de l'objet courant
         // En argument, on fournit le fichier de Vue
@@ -49,7 +49,7 @@ class CategoryController extends CoreController
      *
      * @return void
      */
-    public function category_modAction($params)
+    public function mod($params)
     {
         
         $categoryModel = new Category;
