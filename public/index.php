@@ -40,64 +40,29 @@ if (array_key_exists('BASE_URI', $_SERVER)) {
 // 4. Le nom de la route : pour identifier la route, on va suivre une convention
 //      - "NomDuController-NomDeLaMéthode"
 //      - ainsi pour la route /, méthode "home" du MainController => "main-home"
+
 $router->map(
-    'GET',
-    '/',
-    [
-        'method' => 'home',
-        'controller' => '\App\Controllers\MainController' // On indique le FQCN de la classe
-    ],
-    'main-home'
+    'GET','/', '\App\Controllers\MainController@home','main-home'
+);
+
+$router->map(
+    'GET', '/categorie', '\App\Controllers\CategoryController::list','category-list'
+);
+
+$router->map(
+    'GET', '/categorie_add', '\App\Controllers\CategoryController@add','category-add'
+);
+$router->map(
+    'POST','/categorie_add', '\App\Controllers\CategoryController@create','category-create'
 );
 
 $router->map(
     'GET',
-    '/categorie',
-    [
-        'method' => 'list',
-        'controller' => '\App\Controllers\CategoryController' // On indique le FQCN de la classe
-    ],
-    'category-list'
+    '/categorie_mod/[i:id]', '\App\Controllers\CategoryController::mod','category-mod'
 );
 
 $router->map(
-    'GET',
-    '/categorie_add',
-    [
-        'method' => 'add',
-        'controller' => '\App\Controllers\CategoryController' // On indique le FQCN de la classe
-    ],
-    'category-add'
-);
-
-$router->map(
-    'POST',
-    '/categorie_add',
-    [
-        'method' => 'create',
-        'controller' => '\App\Controllers\CategoryController' // On indique le FQCN de la classe
-    ],
-    'category-create'
-);
-
-$router->map(
-    'GET',
-    '/categorie_mod/[i:id]',
-    [
-        'method' => 'mod',
-        'controller' => '\App\Controllers\CategoryController' // On indique le FQCN de la classe
-    ],
-    'category-mod'
-);
-
-$router->map(
-    'POST',
-    '/categorie_mod/[i:id]',
-    [
-        'method' => 'modValid',
-        'controller' => '\App\Controllers\CategoryController' // On indique le FQCN de la classe
-    ],
-    'category-modCalid'
+    'POST','/categorie_mod/[i:id]', '\App\Controllers\CategoryController@modValid','category-modCalid'
 );
 
 $router->map(
@@ -109,7 +74,6 @@ $router->map(
     ],
     'product-list'
 );
-
 
 $router->map(
     'GET',
