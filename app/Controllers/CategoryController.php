@@ -167,7 +167,7 @@ class CategoryController extends CoreController
         
         // vérifier si toutes les données existent avant d'insérer dans la base de donnée
         // TODO afficher une erreur sur le formulaire
-        if ($name & $subtitle & $picture & $home_order) {
+        if ($name && $subtitle && $picture && $home_order) {
             $categoryModel = new Category;
             $category = $categoryModel->find($id);
             $category->setName($name);
@@ -181,7 +181,9 @@ class CategoryController extends CoreController
         // On appelle la méthode show() de l'objet courant
         // En argument, on fournit le fichier de Vue
         // Par convention, chaque fichier de vue sera dans un sous-dossier du nom du Controller
+        
         if ($validate) { $this->mod($id, true);
+            
         } else {
             $this->mod($id);
         }

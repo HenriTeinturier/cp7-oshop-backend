@@ -212,23 +212,63 @@ class Category extends CoreModel
         // Récupération de l'objet PDO représentant la connexion à la DB
         $pdo = Database::getPDO();
 
-        // Ecriture de la requête UPDATE
+        // Ecriture de la requête UPDATE à utiliser avec prépare
         $sql = "
             UPDATE `category`
             SET
-                name = '{$this->name}',
-                subtitle = '{$this->subtitle}',
-                picture = '{$this->picture}',
-                home_order = '{$this->home_order}',
+                name = :name,
+                subtitle = :subtitle,
+                picture = :picture,
+                home_order = :home_order,
                 updated_at = NOW()
                 
-            WHERE id = $this->id
+            WHERE id = :id
         ";
 
+        // préparation de la reqsuête
+        $statement = $pdo->prepare ($sql);
+
+        // execution de la requete de mise à jour
+        $updatedRows = $statement->execute([
+            ":name" =>  $this->name,
+            ":subtitle" => $this->subtitle,
+            ":picture" => $this->picture,
+            ":home_order" => $this->home_order,
+            ":id" => $this->id,
+
+        ]);
+
         // Execution de la requête de mise à jour (exec, pas query)
-        $updatedRows = $pdo->exec($sql);
+        // $updatedRows = $pdo->exec($sql);
 
         // On retourne VRAI, si au moins une ligne ajoutée
         return ($updatedRows > 0);
+    }
+
+    /**
+     * Méthode permettant de supprimer un enregistrement dans la table category
+     * L'objet courant doit contenir l'id
+     * @return bool
+     */
+    public function delete()
+    {
+        // Récupération de l'objet PDO représentant la connexion à la DB
+        $pdo = Database::getPDO();
+
+        // Ecriture de la requête UPDATE
+        $sql = "DELETE FROM `category` 
+                WHERE `id` = :id";
+
+        // Je prépare toujours la requête de la même façon
+        $statement = $pdo->prepare( $sql );
+
+        // Je remplace successivement chaque étiquette par sa valeur
+        $statement->bindValue( ":id",     $this->id,      PDO::PARAM_INT );
+
+        // J'appelle execute, cette fois sans paramètre car les étiquette sont déjà remplacées ;)
+        $deletedRows = $statement->execute();
+
+        // On retourne VRAI, si au moins une ligne ajoutée
+        return ($deletedRows > 0);
     }
 }
