@@ -355,4 +355,31 @@ class Product extends CoreModel
         // On retourne VRAI, si au moins une ligne ajoutée
         return ($updatedRows > 0);
     }
+
+    /**
+     * Méthode permettant de supprimer un enregistrement dans la table category
+     * L'objet courant doit contenir l'id
+     * @return bool
+     */
+    static function delete($id)
+    {
+        // Récupération de l'objet PDO représentant la connexion à la DB
+        $pdo = Database::getPDO();
+
+        // Ecriture de la requête UPDATE
+        $sql = "DELETE FROM `product` 
+                WHERE `id` = :id";
+
+        // Je prépare toujours la requête de la même façon
+        $statement = $pdo->prepare( $sql );
+
+        // Je remplace successivement chaque étiquette par sa valeur
+        $statement->bindValue( ":id",     $id,      PDO::PARAM_INT );
+
+        // J'appelle execute, cette fois sans paramètre car les étiquette sont déjà remplacées ;)
+        $deletedRows = $statement->execute();
+
+        // On retourne VRAI, si au moins une ligne ajoutée
+        return ($deletedRows > 0);
+    }
 }

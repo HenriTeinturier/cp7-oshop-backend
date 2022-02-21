@@ -250,7 +250,7 @@ class Category extends CoreModel
      * L'objet courant doit contenir l'id
      * @return bool
      */
-    public function delete()
+    static function delete($id)
     {
         // Récupération de l'objet PDO représentant la connexion à la DB
         $pdo = Database::getPDO();
@@ -263,7 +263,7 @@ class Category extends CoreModel
         $statement = $pdo->prepare( $sql );
 
         // Je remplace successivement chaque étiquette par sa valeur
-        $statement->bindValue( ":id",     $this->id,      PDO::PARAM_INT );
+        $statement->bindValue( ":id",     $id,      PDO::PARAM_INT );
 
         // J'appelle execute, cette fois sans paramètre car les étiquette sont déjà remplacées ;)
         $deletedRows = $statement->execute();

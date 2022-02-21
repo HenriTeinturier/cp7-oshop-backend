@@ -188,4 +188,16 @@ class CategoryController extends CoreController
             $this->mod($id);
         }
     }
+
+    public function deleteCat($id) {
+
+        $isDeleted = Category::delete($id);
+        
+        
+        header("Location: /categorie");
+
+        
+        
+    }
+
 }

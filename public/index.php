@@ -12,6 +12,8 @@ require_once '../vendor/autoload.php';
 --- ROUTAGE ---
 -------------*/
 
+// On démarre le système de gestion des sessions de PHP
+// session_start();
 
 // création de l'objet router
 // Cet objet va gérer les routes pour nous, et surtout il va
@@ -46,7 +48,23 @@ $router->map(
 );
 
 $router->map(
+    'GET','/connexion', '\App\Controllers\MainController@connexion','main-connexion'
+);
+
+$router->map(
+    'POST','/connexion', '\App\Controllers\MainController@connexionValidate','main-connexionValidate'
+);
+
+
+
+$router->map(
     'GET', '/categorie', '\App\Controllers\CategoryController::list','category-list'
+);
+
+
+// a corriger
+$router->map(
+    'GET', '/delete/[i:id]',  '\App\Controllers\CategoryController::deleteCat','category-delete'
 );
 
 $router->map(
@@ -65,6 +83,8 @@ $router->map(
     'POST','/categorie_mod/[i:id]', '\App\Controllers\CategoryController@modValid','category-modCalid'
 );
 
+
+
 $router->map(
     'GET',
     '/produit',
@@ -73,6 +93,11 @@ $router->map(
         'controller' => '\App\Controllers\ProductController' // On indique le FQCN de la classe
     ],
     'product-list'
+);
+
+// a corriger
+$router->map(
+    'GET', '/deleteProduct/[i:id]',  '\App\Controllers\ProductController::deleteProduct','product-delete'
 );
 
 $router->map(
@@ -84,6 +109,9 @@ $router->map(
     ],
     'product-add'
 );
+
+
+
 $router->map(
     'POST',
     '/produit_add',

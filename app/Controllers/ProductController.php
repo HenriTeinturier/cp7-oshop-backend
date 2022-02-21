@@ -184,4 +184,15 @@ class ProductController extends CoreController
             $this->mod($id);
         }
     }
+
+    public function deleteProduct($id) {
+
+        $isDeleted = Product::delete($id);
+        
+        
+        header("Location: /produit");
+
+        
+        
+    }
 }
