@@ -59,6 +59,10 @@ $router->map(
     'POST','/login', '\App\Controllers\UserController@connect','user-connect'
 );
 
+$router->map(
+    'GET','/logout', '\App\Controllers\UserController@logout','user-logout'
+);
+
 
 
 $router->map(

@@ -21,6 +21,17 @@ class UserController extends CoreController
         $this->show('main/connexion');
     }
 
+    public function logout()
+    {
+        // pour deconnecter l'utilisateur plusieurs solutiosn:
+        $_SESSION = [];
+
+        // a changer
+        global $router;
+        header('Location: '. '/');
+        exit;
+    }
+
     public function connect()
     {
         
@@ -49,15 +60,28 @@ class UserController extends CoreController
         if ( $user === false) {
             $errorsList[] = "L'utilisateur n'existe pas !";
         }
-        // peut importe si la premiere à réussi on fait 'autres test à part:
-        if ($user == false)  { 
+
+        // TODO rajouter la condition si on ne recupere pas d'ŝuer
+        // et/oui que le $-SESSIOn ne contient personne
+        if(password_verify($_POST['password'], $user->getPassword())) {
+            
+            $_SESSION['userObject'] = $user;
+            $_SESSION['userId'] = $user->getId();
+        } else { 
             $errorsList[] = "Le mot de passe ou le login ne correspondent pas !";
             unset($_SESSION['userObject']);
             unset($_SESSION['userId']);
-        } else {
-            $_SESSION['userObject'] = $user;
-            $_SESSION['userId'] = $user->getId(); 
-    }   
+        }
+
+        // peut importe si la premiere à réussi on fait 'autres test à part:
+    //     if ($user == false)  { 
+    //         $errorsList[] = "Le mot de passe ou le login ne correspondent pas !";
+    //         unset($_SESSION['userObject']);
+    //         unset($_SESSION['userId']);
+    //     } else {
+    //         $_SESSION['userObject'] = $user;
+    //         $_SESSION['userId'] = $user->getId(); 
+    // }   
         
 
         

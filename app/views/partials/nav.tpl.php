@@ -27,9 +27,17 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#">Sélections Accueil &amp; Footer</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?php echo $router->generate('user-login');   ?>">Connexion</a>
-                    </li>
+
+                    <?php if(isset($_SESSION['userObject'])):?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?php echo $router->generate('user-logout');   ?>">Deconnexion</a>
+                        </li>
+                    <?php else : ?> 
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?php echo $router->generate('user-login');   ?>">Connexion</a>
+                        </li>  
+                        
+                    <?php endif ?>
                 </ul>
             </div>
         </div>
