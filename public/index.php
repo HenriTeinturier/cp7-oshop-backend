@@ -52,6 +52,10 @@ $router->map(
 );
 
 $router->map(
+    'GET','/', '\App\Controllers\MainController@erreur403','main-erreur403'
+);
+
+$router->map(
     'GET','/login', '\App\Controllers\UserController@login','user-login'
 );
 
@@ -63,6 +67,16 @@ $router->map(
     'GET','/logout', '\App\Controllers\UserController@logout','user-logout'
 );
 
+$router->map(
+    'GET', '/users', '\App\Controllers\UserController::list','user-list'
+);
+
+$router->map(
+    'GET', '/user-add', '\App\Controllers\UserController@add','user-add'
+);
+$router->map(
+    'POST','/user-add', '\App\Controllers\UserController@create','user-create'
+);
 
 
 $router->map(

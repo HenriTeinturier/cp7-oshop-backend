@@ -42,4 +42,41 @@ abstract class CoreController
         require_once __DIR__ . '/../views/' . $viewName . '.tpl.php';
         require_once __DIR__ . '/../views/layout/footer.tpl.php';
     }
+
+    /**
+     * Methode s'occupant de gérer les vérifs de rôle pour chaque page
+     *
+     * @return void
+     */
+    protected function checkAuthorization($authorizedRoles = []) {
+        //verifier si l'utilisateur est connecté
+        if (isset($_SESSION['userObject'])):
+            // si connecte on recuper l'user et donc son rôle
+            $currentUserRole = $_SESSION['userObject']->getRole();
+            // verifier si le rôle est autoriséé à acceder à la page
+            // cela revient à verfier si le rôle est dans le tableau $authoriseRoles
+                
+                // si oui alors j'ai le droit d'acceder à la pager on return true
+                if (in_array($currentUserRole, $authorizedRoles)):
+                    return true;
+                // sinon on envoi le header 403 forbidden on arrête le  script et on affiche l'erreur
+                else:
+                   http_response_code(403);
+                // on affiche l'erreur
+                $this->show( "main/erreur403" );
+
+                //on arrêt le script sinon la page demandé va s'afficher
+                exit();
+                endif;
+
+
+        // sinon, on l'envoi vers la page de ocnnexion
+        else:
+            header("Location: /login"); //serait mieux avec router-Wgenerate() mais il faut rendre router accessible avec construct
+            exit();   
+
+        endif;
+
+
+    }
 }

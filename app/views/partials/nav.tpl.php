@@ -8,7 +8,9 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
-                    
+                <li class="nav-item">
+                        <a class="nav-link" href="<?php echo $router->generate('user-list');   ?>">Users</a>
+                    </li>
                     <li class="nav-item">
                         <a class="nav-link" href="<?php echo $router->generate('category-list');   ?>">Catégories</a>
                     </li>

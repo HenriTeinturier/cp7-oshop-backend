@@ -101,7 +101,7 @@ class AppUser extends CoreModel
         // Ecriture de la requête INSERT INTO
         $sql = "
             INSERT INTO `app_user` (email, password, firstname, lastname, role, status)
-            VALUES ('{$this->email}', '{$this->password}', '{$this->firstname}', '{$this->lastname}', '{$this->rolde}', '{$this->status}' )
+            VALUES ('{$this->email}', '{$this->password}', '{$this->firstname}', '{$this->lastname}', '{$this->role}', '{$this->status}' )
         ";
 
         // Execution de la requête d'insertion (exec, pas query)
