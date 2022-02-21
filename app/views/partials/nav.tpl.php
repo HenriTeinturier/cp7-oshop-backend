@@ -28,7 +28,7 @@
                         <a class="nav-link" href="#">Sélections Accueil &amp; Footer</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="<?php echo $router->generate('main-connexion');   ?>">Connexion</a>
+                        <a class="nav-link" href="<?php echo $router->generate('user-login');   ?>">Connexion</a>
                     </li>
                 </ul>
             </div>

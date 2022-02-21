@@ -61,13 +61,23 @@ class AppUser extends CoreModel
          $pdo = Database::getPDO();
 
          // écrire notre requête
-         $sql = 'SELECT * FROM `app_user` WHERE `email` ="' . $email.'"';
+         $sql = "SELECT * FROM `app_user` WHERE `email` =:email";
+
+         // preparation pour eviter une injection sql de l'utilisateur
+         $statement = $pdo->prepare($sql);
  
          // exécuter notre requête
-         $pdoStatement = $pdo->query($sql);
+        //  $statement = $pdo->query($sql);
         
-         // un seul résultat => fetchObject
-         $user = $pdoStatement->fetchObject('App\Models\AppUser');
+        // j'explique comment utiliser les étiquettes:
+        $statement->bindValue(":email", $email, PDO::PARAM_STR);
+
+         //j'execute ma requette préparée
+         // attention ne reoutne pas un jeu de resultat. La variable $statement contient désormais le jue de résultat.
+         $statement->execute();
+
+         // on demande à la requette préparée désormais éxecutée de nous donner les resultats
+         $user = $statement->fetchObject('App\Models\AppUser');
         
          // retourner le résultat
          return $user;

@@ -52,11 +52,11 @@ $router->map(
 );
 
 $router->map(
-    'GET','/connexion', '\App\Controllers\MainController@connexion','main-connexion'
+    'GET','/login', '\App\Controllers\UserController@login','user-login'
 );
 
 $router->map(
-    'POST','/connexion', '\App\Controllers\MainController@connexionValidate','main-connexionValidate'
+    'POST','/login', '\App\Controllers\UserController@connect','user-connect'
 );
 
 
