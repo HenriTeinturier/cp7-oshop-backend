@@ -49,7 +49,7 @@ class AppUser extends CoreModel
         $pdoStatement = $pdo->query($sql);
 
         // un seul résultat => fetchObject
-        $user = $pdoStatement->fetchObject('App\Models\Category');
+        $user = $pdoStatement->fetchObject('App\Models\AppUser');
 
         // retourner le résultat
         return $user;
@@ -65,10 +65,10 @@ class AppUser extends CoreModel
  
          // exécuter notre requête
          $pdoStatement = $pdo->query($sql);
-        dump($pdoStatement);
+        
          // un seul résultat => fetchObject
          $user = $pdoStatement->fetchObject('App\Models\AppUser');
-        dump($user);
+        
          // retourner le résultat
          return $user;
     }
@@ -78,7 +78,7 @@ class AppUser extends CoreModel
         $pdo = Database::getPDO();
         $sql = 'SELECT * FROM `app_user`';
         $pdoStatement = $pdo->query($sql);
-        $users = $pdoStatement->fetchAll(PDO::FETCH_CLASS, 'App\Models\Category');
+        $users = $pdoStatement->fetchAll(PDO::FETCH_CLASS, 'App\Models\AppUser');
 
         return $users;
     }

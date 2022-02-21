@@ -50,7 +50,7 @@ class MainController extends CoreController
 
     public function connexionValidate()
     {
-        dump($_POST);
+        
         // On appelle la méthode show() de l'objet courant
         // En argument, on fournit le fichier de Vue
         // Par convention, chaque fichier de vue sera dans un sous-dossier du nom du Controller
@@ -75,16 +75,22 @@ class MainController extends CoreController
             $errorsList[] = "L'utilisateur n'existe pas !";
         }
         // peut importe si la premiere à réussi on fait 'autres test à part:
-        if ( $password != $user->getPassword()) {
+        if ($user == false)  { 
             $errorsList[] = "Le mot de passe ou le login ne correspondent pas !";
-        }
+            unset($_SESSION['userObject']);
+            unset($_SESSION['userId']);
+        } else {
+            $_SESSION['userObject'] = $user;
+            $_SESSION['userId'] = $user->getId(); 
+    }   
+        
 
         
 
 
 
 
-        // $this->show('main/connexion');
+        $this->home();
     }
 
 }
