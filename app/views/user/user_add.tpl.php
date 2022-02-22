@@ -42,6 +42,7 @@
                 </select>
             </div>
             
+            <input type="hidden" class="form-control" name="token" id="token" value="<?= $_SESSION['token']; ?>" >
                         
 
         <div class="d-grid gap-2">

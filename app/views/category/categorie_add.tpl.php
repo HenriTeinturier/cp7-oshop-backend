@@ -32,6 +32,8 @@
                     1 à 5 pour le classement accueil 0 pour ne pas être sur accueil
                 </small>
             </div>
+
+            <input type="hidden" class="form-control" name="token" id="token" value="<?= $_SESSION['token']; ?>" >
                         
 
         <div class="d-grid gap-2">

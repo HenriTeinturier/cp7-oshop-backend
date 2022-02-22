@@ -33,7 +33,7 @@ class MainController extends CoreController
         ];
 
         // la je verifie
-        $this->checkAuthorization( [ 'catalog-manager', 'admin', 'superadmin' ] );
+        // $this->checkAuthorization( [ 'catalog-manager', 'admin', 'superadmin' ] );
 
         // On appelle la méthode show() de l'objet courant
         // En argument, on fournit le fichier de Vue

@@ -34,7 +34,7 @@ class UserController extends CoreController
     public function list()
     {
          // la je verifie
-         $this->checkAuthorization( ['admin', 'superadmin' ] );
+        //  $this->checkAuthorization( ['admin', 'superadmin' ] );
         
         $usersModel = new AppUser;
         $users = $usersModel->findAll();
@@ -59,7 +59,7 @@ class UserController extends CoreController
     {
 
         // la je verifie
-        $this->checkAuthorization( [ 'admin', 'superadmin' ] );
+        // $this->checkAuthorization( [ 'admin', 'superadmin' ] );
         // On appelle la méthode show() de l'objet courant
         // En argument, on fournit le fichier de Vue
         // Par convention, chaque fichier de vue sera dans un sous-dossier du nom du Controller
