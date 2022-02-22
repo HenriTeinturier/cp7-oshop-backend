@@ -1,12 +1,12 @@
 <div class="container my-4">
         <a href=<?=$router->generate('user-list') ?> class="btn btn-success float-end">Retour</a>
-        <h2>Ajouter un utilisateur</h2>
+        <h2>Modifier un utilisateur</h2>
         
-        <form action="<?= $router->generate('user-create')  ?>" method="POST" class="mt-5">
+        <form action="<?= $router->generate('user-update')  ?>" method="POST" class="mt-5">
 
             <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
-                <input type="email" name="email" class="form-control" id="email" placeholder="Email de l'utilisateur">
+                <input type="email" name="email" class="form-control" id="email" value="<?= $user->getEmail()?>" placeholder="Email de l'utilisateur">
             </div>
             <div class="mb-3">
                 <label for="password" class="form-label">Mot de passe</label>
@@ -18,11 +18,11 @@
             </div>
             <div class="mb-3">
                 <label for="firstname" class="form-label">Nom</label>
-                <input type="text" name="firstname" class="form-control" id="firstname" placeholder="Nom de l'utilisateur">
+                <input type="text" name="firstname" class="form-control" id="firstname" value="<?= $user->getFirstname()?>" placeholder="Nom de l'utilisateur">
             </div>
             <div class="mb-3">
                 <label for="lastname" class="form-label">Prénom</label>
-                <input type="text" name="lastname" class="form-control" id="lastname" placeholder="Prénom utilisateur">
+                <input type="text" name="lastname" class="form-control" id="lastname" value="<?= $user->getLastname()?>"  placeholder="Prénom utilisateur">
             </div>
             <div class="form-group">
                 <label for="role">Rôle</label>
@@ -30,6 +30,8 @@
                     
                     <option value="1">catalog-manager</option>
                     <option value="2">admin</option>
+
+                    
                 </select>
             </div>
             <div class="form-group">

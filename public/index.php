@@ -78,6 +78,21 @@ $router->map(
     'POST','/user-add', '\App\Controllers\UserController@create','user-create'
 );
 
+// Pas utilisée pour le moment
+$router->map(
+    'GET',
+    '/user_update/[i:id]', '\App\Controllers\UserController::edit','user-edit'
+);
+// Pas utilisée pour le moment
+$router->map(
+    'POST','/user_update/[i:id]', '\App\Controllers\UserController@update','user-update'
+);
+// Pas utilisée pour le moment
+$router->map(
+    'GET', '/user_delete/[i:id]',  '\App\Controllers\UserController::deleteUser','user-delete'
+);
+
+
 
 $router->map(
     'GET', '/categorie', '\App\Controllers\CategoryController::list','category-list'

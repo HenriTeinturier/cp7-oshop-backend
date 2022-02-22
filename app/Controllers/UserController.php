@@ -12,6 +12,24 @@ use App\Models\AppUser;
 
 class UserController extends CoreController
 {
+    public function edit($params, $validate=false)
+    {
+        
+        
+
+        $userModel = new AppUser;
+        $user = $userModel->find($params);
+
+        $data = [
+            'user' => $user,
+            'validate' => $validate
+        ];
+
+        // On appelle la méthode show() de l'objet courant
+        // En argument, on fournit le fichier de Vue
+        // Par convention, chaque fichier de vue sera dans un sous-dossier du nom du Controller
+        $this->show('user/user_edit', $data);
+    }
 
     public function list()
     {
@@ -61,7 +79,8 @@ class UserController extends CoreController
         $email = filter_input(INPUT_POST, 'email',FILTER_VALIDATE_EMAIL );
         $password_not_empty = (strlen($_POST['password']) > 0);
         $password = filter_input(INPUT_POST, 'password');
-        $password = password_hash($password, PASSWORD_DEFAULT);
+        $password_confirm = filter_input(INPUT_POST, 'password_confirm');
+        
         $firstname = filter_input(INPUT_POST, 'firstname', FILTER_SANITIZE_STRING);
         $lastname = filter_input(INPUT_POST, 'lastname', FILTER_SANITIZE_STRING);
         $role = filter_input(INPUT_POST, 'role', FILTER_SANITIZE_STRING);
@@ -77,6 +96,9 @@ class UserController extends CoreController
         if (empty($password) || $password === false) {
             $errorsList[] = "Le password est invalide !";
         }
+        if ($password !== $password_confirm) {
+            $errorsList[] = "Les deux mots de passe sont différents !";
+        }
         if (empty($firstname) || $firstname === false) {
             $errorsList[] = "Le Nom est invalide!";
         }
@@ -86,13 +108,15 @@ class UserController extends CoreController
         if (empty($role) || $role === false) {
             $errorsList[] = "Le Rôle est invalide!";
         }
-        if (empty($status) || $status === false) {
+        
+        if ( $status === false) {
             $errorsList[] = "Le Statut est invalide!";
         }
-
+        
         
         // si errorlist est vide tout ok on peut ajouter en bdd
         if (empty($errorsList)) {
+            $password = password_hash($password, PASSWORD_DEFAULT);
             $user = new AppUser;
             $user->setEmail($email);
             $user->setPassword($password);
@@ -100,7 +124,7 @@ class UserController extends CoreController
             $user->setLastname($lastname);
             $user->setRole($role);
             $user->setStatus($status);
-    
+            
            $insertIsInsert = $user->insert();
 
            if($insertIsInsert) {
@@ -118,13 +142,13 @@ class UserController extends CoreController
 
            } else {
                $errorsList[] = "une erreur est survenue lors de l'ajout de l'utilisateur";
-               
+               dump($errorsList);
            }
            
         }
         // si un champs n'est pas rempli par exemple.
         // dump( $errorsList );
-
+        dump($errorsList);
         // vérifier si toutes les données existent avant d'insérer dans la base de donnée
         // TODO afficher une erreur sur le formulaire
         // if ($name & $subtitle & $picture & $home_order) {

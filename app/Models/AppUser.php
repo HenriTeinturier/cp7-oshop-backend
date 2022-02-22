@@ -108,6 +108,7 @@ class AppUser extends CoreModel
         $insertedRows = $pdo->exec($sql);
         
         // Si au moins une ligne ajoutée
+        
         if ($insertedRows > 0) {
             // Alors on récupère l'id auto-incrémenté généré par MySQL
             $this->id = $pdo->lastInsertId();
