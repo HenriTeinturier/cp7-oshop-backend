@@ -27,7 +27,7 @@
                         <a class="nav-link" href="#">Tags</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Sélections Accueil &amp; Footer</a>
+                        <a class="nav-link" href="<?= $router->generate('main-homepage')  ?>">Sélections Accueil &amp; Footer</a>
                     </li>
 
                     <?php if(isset($_SESSION['userObject'])):?>

@@ -68,7 +68,7 @@
                 Modification validée
                 </div>
             <?php endif ?>           
-
+            <input type="hidden" class="form-control" name="token" id="token" value="<?= $_SESSION['token']; ?>" >
             <div class="d-grid gap-2">
                 <button type="submit" class="btn btn-primary mt-5">Valider</button>
             </div>

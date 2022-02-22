@@ -93,6 +93,40 @@ class Category extends CoreModel
         $this->home_order = $home_order;
     }
 
+     /**
+     * Méthode permettant de mettre à jour un enregistrement dans la table brand
+     * L'objet courant doit contenir l'id, et toutes les données à ajouter : 1 propriété => 1 colonne dans la table
+     *
+     * @return bool
+     */
+    static function updateHomeOrderTo0()
+    {
+        // Récupération de l'objet PDO représentant la connexion à la DB
+        $pdo = Database::getPDO();
+
+        // Ecriture de la requête UPDATE à utiliser avec prépare
+        $sql = "
+            UPDATE `category`
+            SET
+                home_order = :home_order,
+                updated_at = NOW()
+        ";
+
+        // préparation de la reqsuête
+        $statement = $pdo->prepare($sql);
+
+        // execution de la requete de mise à jour
+        $updatedRows = $statement->execute([
+            ":home_order" => 0,
+        ]);
+
+        // Execution de la requête de mise à jour (exec, pas query)
+        // $updatedRows = $pdo->exec($sql);
+
+        // On retourne VRAI, si au moins une ligne ajoutée
+        return ($updatedRows > 0);
+    }
+
     /**
      * Méthode permettant de récupérer un enregistrement de la table Category en fonction d'un id donné
      *

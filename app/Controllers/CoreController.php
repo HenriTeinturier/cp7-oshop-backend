@@ -79,6 +79,7 @@ abstract class CoreController
             "category-update",
             "product-create",
             "product-modValid",
+            "main-homepageValid"
             // ...
         ];
 
@@ -88,6 +89,7 @@ abstract class CoreController
             "user-delete",
             "category-add",
             "category-delete",
+            "main-homepage",
             "product-add",
             // "user-login",
             // ...

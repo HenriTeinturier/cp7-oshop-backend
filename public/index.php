@@ -60,6 +60,14 @@ $router->map(
 );
 
 $router->map(
+    'GET','/homepage', '\App\Controllers\MainController@homepage','main-homepage'
+);
+
+$router->map(
+    'POST','/homepage', '\App\Controllers\MainController@homepageValid','main-homepagevalid'
+);
+
+$router->map(
     'POST','/login', '\App\Controllers\UserController@connect','user-connect'
 );
 

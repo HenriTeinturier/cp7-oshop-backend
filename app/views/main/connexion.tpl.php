@@ -14,7 +14,7 @@
                 <input type="password" name="password" class="form-control" id="password" placeholder="Password" aria-describedby="subtitleHelpBlock">
                 
             </div>                      
-
+            <input type="hidden" class="form-control" name="token" id="token" value="<?= $_SESSION['token']; ?>" >
         <div class="d-grid gap-2">
                 <button type="submit" class="btn btn-primary mt-5">Se connecter</button>
         </div>
