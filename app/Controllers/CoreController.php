@@ -2,13 +2,18 @@
 
 namespace App\Controllers;
 
+
 abstract class CoreController
 {
+    
     public $router;
     // le constructeur de CoreController sera utilisé par tous ses enfants.
     public function __construct($router, $match) {
         // Récupérer le nom de la route courante (etiquette = nom)
         
+        
+
+
         $currentRouteName = $match['name'] ;
         $this->router = $router;
         // definir une liste de permission pour chaque route
@@ -124,6 +129,7 @@ abstract class CoreController
 
     }
 
+    
     /**
      * Méthode permettant d'afficher du code HTML en se basant sur les views
      *
@@ -158,8 +164,10 @@ abstract class CoreController
 
         // $viewData est disponible dans chaque fichier de vue
         dump($_SESSION);
+
         require_once __DIR__ . '/../views/layout/header.tpl.php';
         require_once __DIR__ . '/../views/' . $viewName . '.tpl.php';
+        
         require_once __DIR__ . '/../views/layout/footer.tpl.php';
     }
 
@@ -193,7 +201,8 @@ abstract class CoreController
         // sinon, on l'envoi vers la page de ocnnexion
         else:
             header("Location: /login"); //serait mieux avec router-Wgenerate() mais il faut rendre router accessible avec construct
-            exit();   
+            exit();  
+             
 
         endif;
 

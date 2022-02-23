@@ -1,4 +1,4 @@
-<form action="<?php echo $router->generate('main-homepagevalid')  ?>" method="POST" class="mt-5">
+<form action="<?php echo $router->generate('main-homepagevalid')  ?>"   method="POST" class="mt-5 essai">
     
     <div class="row">
         <div class="col">
@@ -79,6 +79,9 @@
             </div>
         </div>
     </div>
+                         
+        <script src=<?php echo './../app.js' ?>></script>
+      
     <input type="hidden" class="form-control" name="token" id="token" value="<?= $_SESSION['token']; ?>" >
 
     <button type="submit" class="btn btn-primary btn-block mt-5">Valider</button>
