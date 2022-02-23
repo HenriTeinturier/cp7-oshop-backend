@@ -31,6 +31,8 @@ abstract class CoreController
             
 
             'main-home' => ["admin", "catalog-manager"],
+            'main-homepage' => ["admin", "catalog-manager"],
+            'main-homepageValid' => ["admin", "catalog-manager"],
 
             'category-list' => ["admin", "catalog-manager"],
             'category-delete' => ["admin", "catalog-manager"],
@@ -84,7 +86,8 @@ abstract class CoreController
             "category-update",
             "product-create",
             "product-modValid",
-            "main-homepageValid"
+            "main-homepageValid",
+            
             // ...
         ];
 

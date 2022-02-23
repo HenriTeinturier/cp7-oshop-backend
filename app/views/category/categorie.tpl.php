@@ -8,6 +8,7 @@
                     <th scope="col">#</th>
                     <th scope="col">Nom</th>
                     <th scope="col">Sous-titre</th>
+                    <th scope="col">Home Order</th>
                     <th scope="col"></th>
                 </tr>
             </thead>
@@ -18,6 +19,7 @@
                         <th scope="row"><?= $category->getId()  ?></th>
                         <td><?= $category->getName() ?></td>
                         <td><?= $category->getsubtitle() ?></td>
+                        <td><?= $category->getHomeOrder() ?></td>
                         <td class="text-end">
                             <a href="<?= $router->generate('category-mod', ['id' => $category->getId()]) ?>" class="btn btn-sm btn-warning">
                                 <i class="fa fa-pencil-square-o" aria-hidden="true"></i>

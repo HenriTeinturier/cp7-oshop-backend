@@ -41,7 +41,7 @@
                     
                     <option value="<?= $categorie->getId();?>" 
                     
-                    <?php echo $categorie->getHomeOrder() == 3? "selected" : "";  ?>
+                    <?= $categorie->getHomeOrder() == 3? "selected" : "";  ?>
                     
                     ><?= $categorie->getName(); ?></option>
                     <?php endforeach ?>
