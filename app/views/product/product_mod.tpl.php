@@ -63,6 +63,33 @@
                 </select>
             </div>
 
+            <div class="form-group ">
+                <label for="tag">Tags</label>
+                <?php foreach($tags as $tag):?>
+                <div class="form-check ">
+                    <!-- $tag est un objet -->
+                    
+
+                    
+                    <input class="form-check-input" type="checkbox" value="<?= $tag->getId();?>"
+                    
+                    <?php foreach($productTags as $productTag): 
+                    if ($tag->getId() == $productTag->getId()) {
+                        echo 'checked';
+                    }
+                    ?>
+                    <?php endforeach ?>
+                        
+                    id="tag" name="tags[]">
+
+                    <label class="form-check-label" for="tag">
+                        <?= $tag->getName();  ?>
+                    </label>
+
+                </div>
+                <?php endforeach ?>
+            </div>    
+
             <?php if ($validate):  ?>
                 <div class="alert alert-success" role="alert">
                 Modification validée

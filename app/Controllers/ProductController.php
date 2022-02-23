@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Models\Tag;
 use App\Models\Type;
 use App\Models\Brand;
 use App\Models\Product;
@@ -126,16 +127,23 @@ class ProductController extends CoreController
          $typesModel = new Type;
          $types = $typesModel->findAll();
 
+        $tags = Tag::findAll();
+        
+
+        $producttags = Tag::getTags($params);
+        
 
         $productModel = new Product;
         $product = $productModel->find($params);
 
         $data =[
-            'product' => $product,
-            'categories' => $categories,
-            'brands' => $brands,
-            'types' => $types,
-            'validate' => $validate
+            'product' => $product, // produit à modifier
+            'productTags' => $producttags, // list des tags du produit à modifier
+            'categories' => $categories, // list des catégories
+            'brands' => $brands, //list des marques
+            'types' => $types, //list des types
+            'validate' => $validate, //validation du formulaire
+            'tags' => $tags,  // list des tags
         ];
         // On appelle la méthode show() de l'objet courant
         // En argument, on fournit le fichier de Vue
@@ -150,7 +158,31 @@ class ProductController extends CoreController
      */
     public function modValid($id)
     {
-        dump($_POST);
+        
+        
+
+        // si toutes les valeurs sont vides, return null
+        // sinon tableau avec la liste des id de tags
+        $tagsArray = filter_input(INPUT_POST, 'tags', FILTER_DEFAULT , FILTER_REQUIRE_ARRAY);
+        // s'il n'y a pas de tableau de tags alors il n'y a pas de tags
+        // alors on efface tout les tags de produc-id dans la table intermediaire
+        // sinon on efface tout puis on ajoute tout dans cette même table
+        if ($tagsArray) {
+                // on efface puis on ajoute tous les tags
+                
+                Product::deleteAllProductId($id);
+                // on ajoute tous les tags:
+                
+                foreach($tagsArray as $tag) {
+                    Product::insertProductTag($id, $tag);
+                }
+             
+            } else {
+
+                // on efface tous les tags
+                Product::deleteAllProductId($id);
+            }
+        
         
         $name = filter_input(INPUT_POST, 'name');
         $description = filter_input(INPUT_POST, 'description');

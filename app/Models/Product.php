@@ -49,6 +49,10 @@ class Product extends CoreModel
      */
     private $type_id;
 
+    private $product_id;
+    private $tag_id;
+   
+
     /**
      * Méthode permettant de récupérer un enregistrement de la table Product en fonction d'un id donné
      *
@@ -381,5 +385,96 @@ class Product extends CoreModel
 
         // On retourne VRAI, si au moins une ligne ajoutée
         return ($deletedRows > 0);
+    }
+
+    static function deleteAllProductId($id)
+    {
+        // Récupération de l'objet PDO représentant la connexion à la DB
+        $pdo = Database::getPDO();
+
+        // Ecriture de la requête UPDATE
+        $sql = "DELETE FROM `product_has_tag` 
+                WHERE `product_id` = :id";
+
+        // Je prépare toujours la requête de la même façon
+        $statement = $pdo->prepare( $sql );
+
+        // Je remplace successivement chaque étiquette par sa valeur
+        $statement->bindValue( ":id",     $id,      PDO::PARAM_INT );
+
+        // J'appelle execute, cette fois sans paramètre car les étiquette sont déjà remplacées ;)
+        $deletedRows = $statement->execute();
+
+        // On retourne VRAI, si au moins une ligne ajoutée
+        return ($deletedRows > 0);
+    }
+
+    static function insertProductTag($product_id, $tag_id)
+    {
+        // Récupération de l'objet PDO représentant la connexion à la DB
+        $pdo = Database::getPDO();
+
+        // Ecriture de la requête INSERT INTO
+        $sql = "
+            INSERT INTO `product_has_tag` (product_id, tag_id)
+            VALUES ('{$product_id}', '{$tag_id}')
+        ";
+
+        // Execution de la requête d'insertion (exec, pas query)
+        $insertedRows = $pdo->exec($sql);
+        
+        // Si au moins une ligne ajoutée
+        
+        if ($insertedRows > 0) {
+            // Alors on récupère l'id auto-incrémenté généré par MySQL
+            // $this->id = $pdo->lastInsertId();
+
+            // On retourne VRAI car l'ajout a parfaitement fonctionné
+            return true;
+            // => l'interpréteur PHP sort de cette fonction car on a retourné une donnée
+        }
+
+        // Si on arrive ici, c'est que quelque chose n'a pas bien fonctionné => FAUX
+        return false;
+    }
+
+    /**
+     * Get the value of product_id
+     */ 
+    public function getProduct_id()
+    {
+        return $this->product_id;
+    }
+
+    /**
+     * Set the value of product_id
+     *
+     * @return  self
+     */ 
+    public function setProduct_id($product_id)
+    {
+        $this->product_id = $product_id;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of tag_id
+     */ 
+    public function getTag_id()
+    {
+        return $this->tag_id;
+    }
+
+    /**
+     * Set the value of tag_id
+     *
+     * @return  self
+     */ 
+    public function setTag_id($tag_id)
+    {
+        $this->tag_id = $tag_id;
+
+        return $this;
     }
 }
