@@ -293,7 +293,7 @@ class Product extends CoreModel
     }
 
      /**
-     * Méthode permettant d'ajouter un enregistrement dans la table brand
+     * Méthode permettant d'ajouter un enregistrement dans la table Product
      * L'objet courant doit contenir toutes les données à ajouter : 1 propriété => 1 colonne dans la table
      *
      * @return bool

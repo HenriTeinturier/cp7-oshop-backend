@@ -8,19 +8,13 @@
 // mais aussi d'activer le chargement automatique des classes (convention PSR-4)
 require_once '../vendor/autoload.php';
 
-session_start();
-
-
-
-
-
 /* ------------
 --- ROUTAGE ---
 -------------*/
 
 // On démarre le système de gestion des sessions de PHP
-// session_start();
-
+session_start();
+// 
 // création de l'objet router
 // Cet objet va gérer les routes pour nous, et surtout il va
 $router = new AltoRouter();
@@ -49,85 +43,87 @@ if (array_key_exists('BASE_URI', $_SERVER)) {
 //      - "NomDuController-NomDeLaMéthode"
 //      - ainsi pour la route /, méthode "home" du MainController => "main-home"
 
+
+
 $router->map(
-    'GET','/', '\App\Controllers\MainController@home','main-home'
+    'GET','/', 'MainController@home','main-home'
 );
 
 $router->map(
-    'GET','/', '\App\Controllers\MainController@erreur403','main-erreur403'
+    'GET','/', 'MainController@erreur403','main-erreur403'
 );
 
 $router->map(
-    'GET','/login', '\App\Controllers\UserController@login','user-login'
+    'GET','/login', 'UserController@login','user-login'
 );
 
 $router->map(
-    'GET','/homepage', '\App\Controllers\MainController@homepage','main-homepage'
+    'GET','/homepage', 'MainController@homepage','main-homepage'
 );
 
 $router->map(
-    'POST','/homepage', '\App\Controllers\MainController@homepageValid','main-homepagevalid'
+    'POST','/homepage', 'MainController@homepageValid','main-homepagevalid'
 );
 
 $router->map(
-    'POST','/login', '\App\Controllers\UserController@connect','user-connect'
+    'POST','/login', 'UserController@connect','user-connect'
 );
 
 $router->map(
-    'GET','/logout', '\App\Controllers\UserController@logout','user-logout'
+    'GET','/logout', 'UserController@logout','user-logout'
 );
 
 $router->map(
-    'GET', '/users', '\App\Controllers\UserController::list','user-list'
+    'GET', '/users', 'UserController::list','user-list'
 );
 
 $router->map(
-    'GET', '/user-add', '\App\Controllers\UserController@add','user-add'
+    'GET', '/user-add', 'UserController@add','user-add'
 );
 $router->map(
-    'POST','/user-add', '\App\Controllers\UserController@create','user-create'
+    'POST','/user-add', 'UserController@create','user-create'
 );
 
 // Pas utilisée pour le moment
 $router->map(
     'GET',
-    '/user_update/[i:id]', '\App\Controllers\UserController::edit','user-edit'
+    '/user_update/[i:id]', 'UserController::edit','user-edit'
 );
 // Pas utilisée pour le moment
 $router->map(
-    'POST','/user_update/[i:id]', '\App\Controllers\UserController@update','user-update'
+    'POST','/user_update/[i:id]', 'UserController@update','user-update'
 );
 // Pas utilisée pour le moment
 $router->map(
-    'GET', '/user_delete/[i:id]',  '\App\Controllers\UserController::deleteUser','user-delete'
+    'GET', '/user_delete/[i:id]',  'UserController::deleteUser','user-delete'
 );
 
 
 
 $router->map(
-    'GET', '/categorie', '\App\Controllers\CategoryController::list','category-list'
+    'GET', '/categorie', 'CategoryController::list','category-list'
 );
 
 
 // a corriger
 $router->map(
-    'GET', '/delete/[i:id]',  '\App\Controllers\CategoryController::deleteCat','category-delete'
+    'GET', '/delete/[i:id]',  'CategoryController::deleteCat','category-delete'
 );
 
 $router->map(
-    'GET', '/categorie_add', '\App\Controllers\CategoryController@add','category-add'
+    'GET', '/categorie_add', 'CategoryController@add','category-add'
 );
 $router->map(
-    'POST','/categorie_add', '\App\Controllers\CategoryController@create','category-create'
+    'POST','/categorie_add', 'CategoryController@create','category-create'
 );
 
 $router->map(
     'GET',
-    '/categorie_mod/[i:id]', '\App\Controllers\CategoryController::mod','category-mod'
+    '/categorie_mod/[i:id]', 'CategoryController::mod','category-mod'
 );
 
 $router->map(
-    'POST','/categorie_mod/[i:id]', '\App\Controllers\CategoryController@modValid','category-modCalid'
+    'POST','/categorie_mod/[i:id]', 'CategoryController@modValid','category-modCalid'
 );
 
 
@@ -137,14 +133,14 @@ $router->map(
     '/produit',
     [
         'method' => 'list',
-        'controller' => '\App\Controllers\ProductController' // On indique le FQCN de la classe
+        'controller' => 'ProductController' // On indique le FQCN de la classe
     ],
     'product-list'
 );
 
 // a corriger
 $router->map(
-    'GET', '/deleteProduct/[i:id]',  '\App\Controllers\ProductController::deleteProduct','product-delete'
+    'GET', '/deleteProduct/[i:id]',  'ProductController::deleteProduct','product-delete'
 );
 
 $router->map(
@@ -152,7 +148,7 @@ $router->map(
     '/produit_add',
     [
         'method' => 'add',
-        'controller' => '\App\Controllers\ProductController' // On indique le FQCN de la classe
+        'controller' => 'ProductController' // On indique le FQCN de la classe
     ],
     'product-add'
 );
@@ -164,7 +160,7 @@ $router->map(
     '/produit_add',
     [
         'method' => 'create',
-        'controller' => '\App\Controllers\ProductController' // On indique le FQCN de la classe
+        'controller' => 'ProductController' // On indique le FQCN de la classe
     ],
     'product-create'
 );
@@ -175,7 +171,7 @@ $router->map(
     '/produit_mod/[i:id]',
     [
         'method' => 'mod',
-        'controller' => '\App\Controllers\ProductController' // On indique le FQCN de la classe
+        'controller' => 'ProductController' // On indique le FQCN de la classe
     ],
     'product-mod'
 );
@@ -185,7 +181,7 @@ $router->map(
     '/produit_mod/[i:id]',
     [
         'method' => 'modValid',
-        'controller' => '\App\Controllers\ProductController' // On indique le FQCN de la classe
+        'controller' => 'ProductController' // On indique le FQCN de la classe
     ],
     'product-modValid'
 );
@@ -205,8 +201,11 @@ $match = $router->match();
 // On délègue à une librairie externe : https://packagist.org/packages/benoclock/alto-dispatcher
 // 1er argument : la variable $match retournée par AltoRouter
 // 2e argument : le "target" (controller & méthode) pour afficher la page 404
-$dispatcher = new Dispatcher($match, '\App\Controllers\ErrorController::err404');
+$dispatcher = new Dispatcher($match, 'ErrorController::err404');
 // Une fois le "dispatcher" configuré, on lance le dispatch qui va exécuter la méthode du controller
+
+// permet d'éciter de répéter à chaque fois le noim complet (FQCN) des namespaces dans le nom des routes.
+$dispatcher->setControllersNamespace('App\Controllers');
 
 // on peut ajouter des arguments dans le $dispatcher: $router, ...)
 $dispatcher->setControllersArguments($router, $match);
