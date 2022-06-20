@@ -12,7 +12,9 @@ require_once '../vendor/autoload.php';
 --- ROUTAGE ---
 -------------*/
 
-
+// On démarre le système de gestion des sessions de PHP
+session_start();
+// 
 // création de l'objet router
 // Cet objet va gérer les routes pour nous, et surtout il va
 $router = new AltoRouter();
@@ -40,64 +42,127 @@ if (array_key_exists('BASE_URI', $_SERVER)) {
 // 4. Le nom de la route : pour identifier la route, on va suivre une convention
 //      - "NomDuController-NomDeLaMéthode"
 //      - ainsi pour la route /, méthode "home" du MainController => "main-home"
+
+
+
+$router->map(
+    'GET','/', 'MainController@home','main-home'
+);
+
+$router->map(
+    'GET','/', 'MainController@erreur403','main-erreur403'
+);
+
+$router->map(
+    'GET','/login', 'UserController@login','user-login'
+);
+
+$router->map(
+    'GET','/homepage', 'MainController@homepage','main-homepage'
+);
+
+$router->map(
+    'POST','/homepage', 'MainController@homepageValid','main-homepagevalid'
+);
+
+$router->map(
+    'POST','/login', 'UserController@connect','user-connect'
+);
+
+$router->map(
+    'GET','/logout', 'UserController@logout','user-logout'
+);
+
+$router->map(
+    'GET', '/users', 'UserController::list','user-list'
+);
+
+$router->map(
+    'GET', '/user-add', 'UserController@add','user-add'
+);
+$router->map(
+    'POST','/user-add', 'UserController@create','user-create'
+);
+
+// Pas utilisée pour le moment
 $router->map(
     'GET',
-    '/',
-    [
-        'method' => 'home',
-        'controller' => '\App\Controllers\MainController' // On indique le FQCN de la classe
-    ],
-    'main-home'
+    '/user_update/[i:id]', 'UserController::edit','user-edit'
+);
+// Pas utilisée pour le moment
+$router->map(
+    'POST','/user_update/[i:id]', 'UserController@update','user-update'
+);
+// Pas utilisée pour le moment
+$router->map(
+    'GET', '/user_delete/[i:id]',  'UserController::deleteUser','user-delete'
+);
+
+
+
+$router->map(
+    'GET', '/categorie', 'CategoryController::list','category-list'
+);
+
+
+// a corriger
+$router->map(
+    'GET', '/delete/[i:id]',  'CategoryController::deleteCat','category-delete'
+);
+
+$router->map(
+    'GET', '/categorie_add', 'CategoryController@add','category-add'
+);
+$router->map(
+    'POST','/categorie_add', 'CategoryController@create','category-create'
 );
 
 $router->map(
     'GET',
-    '/categorie',
-    [
-        'method' => 'categorieAction',
-        'controller' => '\App\Controllers\CategoryController' // On indique le FQCN de la classe
-    ],
-    'category-category'
+    '/categorie_mod/[i:id]', 'CategoryController::mod','category-mod'
 );
 
 $router->map(
-    'GET',
-    '/categorie_add',
-    [
-        'method' => 'category_addAction',
-        'controller' => '\App\Controllers\CategoryController' // On indique le FQCN de la classe
-    ],
-    'category-category_add'
+    'POST','/categorie_mod/[i:id]', 'CategoryController@modValid','category-modCalid'
 );
 
-$router->map(
-    'GET',
-    '/categorie_mod/[i:id]',
-    [
-        'method' => 'category_modAction',
-        'controller' => '\App\Controllers\CategoryController' // On indique le FQCN de la classe
-    ],
-    'category-category_mod'
-);
+
 
 $router->map(
     'GET',
     '/produit',
     [
-        'method' => 'productAction',
-        'controller' => '\App\Controllers\ProductController' // On indique le FQCN de la classe
+        'method' => 'list',
+        'controller' => 'ProductController' // On indique le FQCN de la classe
     ],
-    'product-product'
+    'product-list'
+);
+
+// a corriger
+$router->map(
+    'GET', '/deleteProduct/[i:id]',  'ProductController::deleteProduct','product-delete'
 );
 
 $router->map(
     'GET',
     '/produit_add',
     [
-        'method' => 'produit_addAction',
-        'controller' => '\App\Controllers\ProductController' // On indique le FQCN de la classe
+        'method' => 'add',
+        'controller' => 'ProductController' // On indique le FQCN de la classe
     ],
-    'product-product_add'
+    'product-add'
+);
+
+
+
+$router->map(
+    'POST',
+    '/produit_add',
+    [
+        'method' => 'create',
+        'controller' => 'ProductController' // On indique le FQCN de la classe
+    ],
+    'product-create'
 );
 
 
@@ -105,11 +170,25 @@ $router->map(
     'GET',
     '/produit_mod/[i:id]',
     [
-        'method' => 'produit_modAction',
-        'controller' => '\App\Controllers\ProductController' // On indique le FQCN de la classe
+        'method' => 'mod',
+        'controller' => 'ProductController' // On indique le FQCN de la classe
     ],
-    'product-product_mod'
+    'product-mod'
 );
+
+$router->map(
+    'POST',
+    '/produit_mod/[i:id]',
+    [
+        'method' => 'modValid',
+        'controller' => 'ProductController' // On indique le FQCN de la classe
+    ],
+    'product-modValid'
+);
+
+
+
+
 
 /* -------------
 --- DISPATCH ---
@@ -122,6 +201,13 @@ $match = $router->match();
 // On délègue à une librairie externe : https://packagist.org/packages/benoclock/alto-dispatcher
 // 1er argument : la variable $match retournée par AltoRouter
 // 2e argument : le "target" (controller & méthode) pour afficher la page 404
-$dispatcher = new Dispatcher($match, '\App\Controllers\ErrorController::err404');
+$dispatcher = new Dispatcher($match, 'ErrorController::err404');
 // Une fois le "dispatcher" configuré, on lance le dispatch qui va exécuter la méthode du controller
+
+// permet d'éciter de répéter à chaque fois le noim complet (FQCN) des namespaces dans le nom des routes.
+$dispatcher->setControllersNamespace('App\Controllers');
+
+// on peut ajouter des arguments dans le $dispatcher: $router, ...)
+$dispatcher->setControllersArguments($router, $match);
+
 $dispatcher->dispatch();

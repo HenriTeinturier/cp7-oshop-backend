@@ -49,6 +49,10 @@ class Product extends CoreModel
      */
     private $type_id;
 
+    private $product_id;
+    private $tag_id;
+   
+
     /**
      * Méthode permettant de récupérer un enregistrement de la table Product en fonction d'un id donné
      *
@@ -286,5 +290,191 @@ class Product extends CoreModel
     public function setTypeId(int $type_id)
     {
         $this->type_id = $type_id;
+    }
+
+     /**
+     * Méthode permettant d'ajouter un enregistrement dans la table Product
+     * L'objet courant doit contenir toutes les données à ajouter : 1 propriété => 1 colonne dans la table
+     *
+     * @return bool
+     */
+    public function insert()
+    {
+        // Récupération de l'objet PDO représentant la connexion à la DB
+        $pdo = Database::getPDO();
+
+        // Ecriture de la requête INSERT INTO 
+        $sql = "
+            INSERT INTO `product` (name, description, picture, price, brand_id, category_id, type_id)
+            VALUES ('{$this->name}', '{$this->description}', '{$this->picture}', '{$this->price}' , '{$this->brand_id}', '{$this->category_id}', '{$this->type_id}')
+        ";
+
+        // Execution de la requête d'insertion (exec, pas query)
+        $insertedRows = $pdo->exec($sql);
+        
+        // Si au moins une ligne ajoutée
+        if ($insertedRows > 0) {
+            // Alors on récupère l'id auto-incrémenté généré par MySQL
+            $this->id = $pdo->lastInsertId();
+
+            // On retourne VRAI car l'ajout a parfaitement fonctionné
+            return true;
+            // => l'interpréteur PHP sort de cette fonction car on a retourné une donnée
+        }
+
+        // Si on arrive ici, c'est que quelque chose n'a pas bien fonctionné => FAUX
+        return false;
+    }
+
+    /**
+     * Méthode permettant de mettre à jour un enregistrement dans la table brand
+     * L'objet courant doit contenir l'id, et toutes les données à ajouter : 1 propriété => 1 colonne dans la table
+     *
+     * @return bool
+     */
+    public function update()
+    {
+        // Récupération de l'objet PDO représentant la connexion à la DB
+        $pdo = Database::getPDO();
+
+        // Ecriture de la requête UPDATE
+        $sql = "
+            UPDATE `product`
+            SET
+                name = '{$this->name}',
+                description = '{$this->description}',
+                picture = '{$this->picture}',
+                price = '{$this->price}',
+                brand_id = '{$this->brand_id}',
+                category_id = '{$this->category_id}',
+                type_id = '{$this->type_id}',
+                updated_at = NOW()
+                
+            WHERE id = $this->id
+        ";
+        
+        // Execution de la requête de mise à jour (exec, pas query)
+        $updatedRows = $pdo->exec($sql);
+
+        // On retourne VRAI, si au moins une ligne ajoutée
+        return ($updatedRows > 0);
+    }
+
+    /**
+     * Méthode permettant de supprimer un enregistrement dans la table category
+     * L'objet courant doit contenir l'id
+     * @return bool
+     */
+    static function delete($id)
+    {
+        // Récupération de l'objet PDO représentant la connexion à la DB
+        $pdo = Database::getPDO();
+
+        // Ecriture de la requête UPDATE
+        $sql = "DELETE FROM `product` 
+                WHERE `id` = :id";
+
+        // Je prépare toujours la requête de la même façon
+        $statement = $pdo->prepare( $sql );
+
+        // Je remplace successivement chaque étiquette par sa valeur
+        $statement->bindValue( ":id",     $id,      PDO::PARAM_INT );
+
+        // J'appelle execute, cette fois sans paramètre car les étiquette sont déjà remplacées ;)
+        $deletedRows = $statement->execute();
+
+        // On retourne VRAI, si au moins une ligne ajoutée
+        return ($deletedRows > 0);
+    }
+
+    static function deleteAllProductId($id)
+    {
+        // Récupération de l'objet PDO représentant la connexion à la DB
+        $pdo = Database::getPDO();
+
+        // Ecriture de la requête UPDATE
+        $sql = "DELETE FROM `product_has_tag` 
+                WHERE `product_id` = :id";
+
+        // Je prépare toujours la requête de la même façon
+        $statement = $pdo->prepare( $sql );
+
+        // Je remplace successivement chaque étiquette par sa valeur
+        $statement->bindValue( ":id",     $id,      PDO::PARAM_INT );
+
+        // J'appelle execute, cette fois sans paramètre car les étiquette sont déjà remplacées ;)
+        $deletedRows = $statement->execute();
+
+        // On retourne VRAI, si au moins une ligne ajoutée
+        return ($deletedRows > 0);
+    }
+
+    static function insertProductTag($product_id, $tag_id)
+    {
+        // Récupération de l'objet PDO représentant la connexion à la DB
+        $pdo = Database::getPDO();
+
+        // Ecriture de la requête INSERT INTO
+        $sql = "
+            INSERT INTO `product_has_tag` (product_id, tag_id)
+            VALUES ('{$product_id}', '{$tag_id}')
+        ";
+
+        // Execution de la requête d'insertion (exec, pas query)
+        $insertedRows = $pdo->exec($sql);
+        
+        // Si au moins une ligne ajoutée
+        
+        if ($insertedRows > 0) {
+            // Alors on récupère l'id auto-incrémenté généré par MySQL
+            // $this->id = $pdo->lastInsertId();
+
+            // On retourne VRAI car l'ajout a parfaitement fonctionné
+            return true;
+            // => l'interpréteur PHP sort de cette fonction car on a retourné une donnée
+        }
+
+        // Si on arrive ici, c'est que quelque chose n'a pas bien fonctionné => FAUX
+        return false;
+    }
+
+    /**
+     * Get the value of product_id
+     */ 
+    public function getProduct_id()
+    {
+        return $this->product_id;
+    }
+
+    /**
+     * Set the value of product_id
+     *
+     * @return  self
+     */ 
+    public function setProduct_id($product_id)
+    {
+        $this->product_id = $product_id;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of tag_id
+     */ 
+    public function getTag_id()
+    {
+        return $this->tag_id;
+    }
+
+    /**
+     * Set the value of tag_id
+     *
+     * @return  self
+     */ 
+    public function setTag_id($tag_id)
+    {
+        $this->tag_id = $tag_id;
+
+        return $this;
     }
 }
